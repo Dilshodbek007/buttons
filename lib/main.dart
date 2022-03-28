@@ -1,3 +1,4 @@
+import 'package:buttons/bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 
 import 'home_page.dart';
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
 
         primarySwatch: Colors.blue,
       ),
-      home: const HomePage(),
+      home: const BottomNavbar1(),
     );
   }
 }
