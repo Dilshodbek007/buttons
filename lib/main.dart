@@ -1,8 +1,6 @@
-import 'package:buttons/bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 
-import 'custom_nav_bar1.dart';
-import 'home_page.dart';
+import 'pages/custom_nav_bar1.dart';
 
 void main() {
   runApp(const MyApp());
