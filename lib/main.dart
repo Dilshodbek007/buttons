@@ -1,7 +1,7 @@
 import 'package:buttons/bottom_navigation_bar.dart';
-import 'package:buttons/custom_nav_bar.dart';
 import 'package:flutter/material.dart';
 
+import 'custom_nav_bar1.dart';
 import 'home_page.dart';
 
 void main() {
@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
 
         primarySwatch: Colors.blue,
       ),
-      home: const CustomNavBar2(),
+      home: const CustomNavBar1(),
     );
   }
 }
