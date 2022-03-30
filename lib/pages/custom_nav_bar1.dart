@@ -54,7 +54,7 @@ class _CustomNavBar1State extends State<CustomNavBar1> {
         height: 60,
         color: Colors.white,
         child: Row(
-          //mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             bottomNavBarItem(0, Icons.home_filled),
             bottomNavBarItem(1, CupertinoIcons.search_circle_fill),
@@ -66,29 +66,21 @@ class _CustomNavBar1State extends State<CustomNavBar1> {
     );
   }
   Widget bottomNavBarItem(int i,icon){
-    return Expanded(
-      child: GestureDetector(
-        onTap: (){
-          setState(() {
-            _currentPage=i;
-          });
-        },
-        child: Container(
-          alignment: Alignment.center,
-          color:Colors.white,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                height: 2,
-                width: 50,
-                color:  _currentPage==i?Colors.blue:Colors.white,
-              ),
-              Expanded(child: Center(child:Icon(icon,color: _currentPage==i?Colors.blue:Colors.grey,)))
-            ],
-          ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          margin:const EdgeInsets.only(bottom: 10),
+          height: 2,
+          width: 50,
+          color:  _currentPage==i?Colors.blue:Colors.white,
         ),
-      ),
+        IconButton(
+          onPressed: ()=> setState(() {
+            _currentPage=i;
+          }),
+          icon: Icon(icon),color: _currentPage==i?Colors.blue:Colors.grey,)
+      ],
     );
   }
 }
