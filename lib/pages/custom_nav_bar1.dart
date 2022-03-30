@@ -41,12 +41,6 @@ class _CustomNavBar1State extends State<CustomNavBar1> {
   int _currentPage=0;
 
   @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    _currentPage=0;
-  }
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: pages[_currentPage],
