@@ -24,13 +24,17 @@ class _CustomNavBar1State extends State<CustomNavBar1> {
   ];
   int _currentPage=0;
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
         child: IndexedStack(
-          children: <Widget>[
-            pages[_currentPage],
+          children: const <Widget>[
+            HomePage(),
+            SearchPage(),
+            NotificationPage(),
+            AccountPage()
           ],
         index: _currentPage,
         ),
