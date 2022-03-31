@@ -1,5 +1,9 @@
 
 
+import 'package:buttons/pages/account_page.dart';
+import 'package:buttons/pages/home_page.dart';
+import 'package:buttons/pages/notification_page.dart';
+import 'package:buttons/pages/search_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -13,37 +17,24 @@ class CustomNavBar1 extends StatefulWidget {
 class _CustomNavBar1State extends State<CustomNavBar1> {
 
   List<Widget> pages=[
-    Container(
-      color: Colors.white,
-      child: const Center(
-        child: Text('Home Page'),
-      ),
-    ),
-    Container(
-      color: Colors.white,
-      child: const Center(
-        child: Text('Search Page'),
-      ),
-    ),
-    Container(
-      color: Colors.white,
-      child: const Center(
-        child: Text('Notification Page'),
-      ),
-    ),
-    Container(
-      color: Colors.white,
-      child: const Center(
-        child: Text('Account Page'),
-      ),
-    ),
+    const HomePage(),
+    const SearchPage(),
+    const NotificationPage(),
+    const AccountPage()
   ];
   int _currentPage=0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: pages[_currentPage],
+      body: SafeArea(
+        child: IndexedStack(
+          children: <Widget>[
+            pages[_currentPage],
+          ],
+        index: _currentPage,
+        ),
+      ),
       bottomNavigationBar: Container(
         height: 60,
         color: Colors.white,
@@ -77,4 +68,5 @@ class _CustomNavBar1State extends State<CustomNavBar1> {
       ],
     );
   }
+
 }
