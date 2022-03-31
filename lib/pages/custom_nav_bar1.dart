@@ -24,7 +24,12 @@ class _CustomNavBar1State extends State<CustomNavBar1> {
   ];
   int _currentPage=0;
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
 
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,10 +50,10 @@ class _CustomNavBar1State extends State<CustomNavBar1> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            bottomNavBarItem(0, Icons.home_filled),
-            bottomNavBarItem(1, CupertinoIcons.search_circle_fill),
-            bottomNavBarItem(2, CupertinoIcons.bell_circle_fill),
-            bottomNavBarItem(3, CupertinoIcons.person_fill),
+            bottomNavBarItem(0,icons[0]),
+            bottomNavBarItem(1,icons[1]),
+            bottomNavBarItem(2,icons[2]),
+            bottomNavBarItem(3,icons[3]),
           ],
         ),
       ),
@@ -72,5 +77,12 @@ class _CustomNavBar1State extends State<CustomNavBar1> {
       ],
     );
   }
+
+  List icons=[
+    Icons.home_filled,
+    CupertinoIcons.search_circle_fill,
+    CupertinoIcons.bell_circle_fill,
+    CupertinoIcons.person_fill
+  ];
 
 }
