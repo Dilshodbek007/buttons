@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "42348986385",
+    "project_id": "bottomnavbar1",
+    "storage_bucket": "bottomnavbar1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:42348986385:android:26d437d5cd966a9cd731b0",
+        "android_client_info": {
+          "package_name": "com.example.buttons"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "42348986385-jce7hqkvbbj6i0n8se9actt5nnn66gbp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAwMwdTBtGZeeUsI0X74PES4Rcj7YSi2Ts"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "42348986385-jce7hqkvbbj6i0n8se9actt5nnn66gbp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

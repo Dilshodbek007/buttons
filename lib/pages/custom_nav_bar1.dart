@@ -16,20 +16,20 @@ class CustomNavBar1 extends StatefulWidget {
 
 class _CustomNavBar1State extends State<CustomNavBar1> {
 
-  List<Widget> pages=[
+  List<Widget> pages = [
     const HomePage(),
     const SearchPage(),
     const NotificationPage(),
     const AccountPage()
   ];
-  int _currentPage=0;
+  int _currentPage = 0;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,7 +41,7 @@ class _CustomNavBar1State extends State<CustomNavBar1> {
             NotificationPage(),
             AccountPage()
           ],
-        index: _currentPage,
+          index: _currentPage,
         ),
       ),
       bottomNavigationBar: Container(
@@ -50,39 +50,43 @@ class _CustomNavBar1State extends State<CustomNavBar1> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            bottomNavBarItem(0,icons[0]),
-            bottomNavBarItem(1,icons[1]),
-            bottomNavBarItem(2,icons[2]),
-            bottomNavBarItem(3,icons[3]),
-          ],
+            for(int i=0;i<icons.length; i++)
+              bottomNavBarItem(i, icons[i])
+              ]
         ),
       ),
     );
   }
-  Widget bottomNavBarItem(int i,icon){
+
+  Widget bottomNavBarItem(int i, icon) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
-          margin:const EdgeInsets.only(bottom: 10),
+          margin: const EdgeInsets.only(bottom: 10),
           height: 2,
           width: 50,
-          color:  _currentPage==i?Colors.blue:Colors.white,
+          color: _currentPage == i ? Colors.blue : Colors.white,
         ),
         IconButton(
-          onPressed: ()=> setState(() {
-            _currentPage=i;
-          }),
-          icon: Icon(icon),color: _currentPage==i?Colors.blue:Colors.grey,)
+          onPressed: () =>
+              setState(() {
+                _currentPage = i;
+              }),
+          icon: Icon(icon),
+          color: _currentPage == i ? Colors.blue : Colors.grey,)
       ],
     );
   }
 
-  List icons=[
+  List icons = [
     Icons.home_filled,
     CupertinoIcons.search_circle_fill,
     CupertinoIcons.bell_circle_fill,
     CupertinoIcons.person_fill
   ];
 
+
+
 }
+
