@@ -15,8 +15,10 @@ class _NotificationPageState extends State<NotificationPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
+        padding: const EdgeInsets.all(10),
         color: Colors.white,
         child: ListView.builder(
+            controller: ScrollController(),
             shrinkWrap: true,
             itemCount: 30,
             itemBuilder: (BuildContext context,int index)=>

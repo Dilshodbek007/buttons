@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
 
         primarySwatch: Colors.blue,
       ),
-      home: const CustomNavBar1(),
+      home: CustomNavBar1(),
     );
   }
 }

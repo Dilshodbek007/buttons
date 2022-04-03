@@ -1,7 +1,3 @@
-
-
-
-
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -15,31 +11,28 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: const Text('Button UI'),
-      //   centerTitle: true,
-      // ),
       body: Container(
+        padding: const EdgeInsets.all(10),
         color: Colors.white,
         child: ListView.builder(
+            controller: ScrollController(),
             shrinkWrap: true,
             itemCount: 30,
-            itemBuilder: (BuildContext context,int index)=>
-                SizedBox(
+            itemBuilder: (BuildContext context, int index) => SizedBox(
                   height: 50,
                   child: ListTile(
                       leading: const Icon(Icons.home),
-                      trailing: const Text("Home",
-                        style: TextStyle(
-                            color: Colors.green,fontSize: 15),),
-                      title:Text("List item $index")
-                  ),
-                )
-        ),
+                      trailing: const Text(
+                        "Home",
+                        style: TextStyle(color: Colors.green, fontSize: 15),
+                      ),
+                      title: Text("List item $index")),
+                )),
       ),
     );
   }
-  BoxDecoration buttonBackDecoration(){
+
+  BoxDecoration buttonBackDecoration() {
     return BoxDecoration(
         gradient: const LinearGradient(
             begin: Alignment.centerLeft,
@@ -50,21 +43,23 @@ class _HomePageState extends State<HomePage> {
               Color(0xFF2995FB),
               Color(0xFF1E88E5),
               Color(0xFF1E88E5)
-            ]
-        ),
-        borderRadius: BorderRadius.circular(14)
-    );
+            ]),
+        borderRadius: BorderRadius.circular(14));
   }
 
-  Widget buttonIcon(IconData icon,double size){
-    return  Container(alignment: Alignment.center,
-      child:  Icon(icon,color: Colors.white,size: size,),
+  Widget buttonIcon(IconData icon, double size) {
+    return Container(
+      alignment: Alignment.center,
+      child: Icon(
+        icon,
+        color: Colors.white,
+        size: size,
+      ),
       height: 35,
       width: 35,
-      decoration:  BoxDecoration(
+      decoration: BoxDecoration(
           color: const Color(0xFF64B5F6),
-          borderRadius: BorderRadius.circular(8)
-      ),
+          borderRadius: BorderRadius.circular(8)),
     );
   }
 }

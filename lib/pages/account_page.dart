@@ -15,8 +15,10 @@ class _AccountPageState extends State<AccountPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
+        padding: const EdgeInsets.all(10),
         color: Colors.white,
         child: ListView.builder(
+            controller: ScrollController(),
             shrinkWrap: true,
             itemCount: 35,
             itemBuilder: (BuildContext context,int index)=>
