@@ -15,7 +15,7 @@ class CustomNavBar1 extends StatefulWidget {
 }
 
 class _CustomNavBar1State extends State<CustomNavBar1> {
-  final GlobalKey<ScaffoldState> _scaffoldKey =  GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   List icons = [
     Icons.home_filled,
     CupertinoIcons.search_circle_fill,
@@ -31,11 +31,12 @@ class _CustomNavBar1State extends State<CustomNavBar1> {
   int _currentPage = 0;
   bool isDrawerOn = false;
   bool isPressed = false;
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    isPressed=true;
+    isPressed = true;
   }
 
   @override
@@ -47,7 +48,18 @@ class _CustomNavBar1State extends State<CustomNavBar1> {
         appBar: AppBar(
           leading: IconButton(
             onPressed: () {
-              _scaffoldKey.currentState?.openDrawer();
+              MediaQuery.of(context).size.width <= 800
+                  ? _scaffoldKey.currentState?.openDrawer()
+                  : null;
+              if(isDrawerOn){
+                setState(() {
+                  isDrawerOn=false;
+                });
+              }else{
+                setState(() {
+                  isDrawerOn=true;
+                });
+              }
             },
             icon: const Icon(Icons.menu),
           ),
@@ -59,16 +71,6 @@ class _CustomNavBar1State extends State<CustomNavBar1> {
           ),
           elevation: 0,
         ),
-        onEndDrawerChanged: (isOpen) {
-         setState(() {
-           isDrawerOn=isOpen;
-         });
-        },
-        onDrawerChanged: (isOpen) {
-          setState(() {
-            isDrawerOn=isOpen;
-          });
-        },
         drawer: Drawer(
           child: myDrawer(),
         ),
@@ -112,26 +114,42 @@ class _CustomNavBar1State extends State<CustomNavBar1> {
   }
 
   Widget myDrawer() {
-    return SizedBox(
-      width: 256,
+    return AnimatedContainer(
+      width:isDrawerOn==false?256:64,
+      duration: Duration(
+        seconds: 1,
+      ),
       child: ListView(
-        shrinkWrap: true,
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
         children: [
           for (int i = 0; i < 4; i++)
             Container(
-              color: isPressed?_currentPage==i?Colors.blue:Colors.white:null,
-              child: ListTile(
+              color: isPressed
+                  ? _currentPage == i
+                      ? Colors.blue
+                      : Colors.white
+                  : null,
+              child: isDrawerOn == false?ListTile(
                 onTap: () {
                   setState(() {
                     _currentPage = i;
-                    isPressed=true;
+                    isPressed = true;
                   });
-                  if(isDrawerOn==true) Navigator.pop(context);
+                  if (MediaQuery.of(context).size.width <= 800)
+                    Navigator.pop(context);
                 },
                 title: Text(pageName[i]),
                 leading: Icon(icons[i]),
-              ),
+              ):
+              IconButton(
+                  onPressed: (){
+                setState(() {
+                  _currentPage = i;
+                  isPressed = true;
+                });
+                if (MediaQuery.of(context).size.width <= 800)
+                  Navigator.pop(context);
+              }, icon: Icon(icons[i],color: Colors.grey,)),
             ),
         ],
       ),
@@ -142,13 +160,13 @@ class _CustomNavBar1State extends State<CustomNavBar1> {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if (MediaQuery.of(context).size.width > 800 && isDrawerOn == false)
+        if (MediaQuery.of(context).size.width > 800 )
           myDrawer(),
         if (MediaQuery.of(context).size.width > 800)
-        const VerticalDivider(
-          color: Colors.grey,
-          thickness: 1,
-        ),
+          const VerticalDivider(
+            color: Colors.grey,
+            thickness: 1,
+          ),
         Flexible(
           child: IndexedStack(
             children: <Widget>[
