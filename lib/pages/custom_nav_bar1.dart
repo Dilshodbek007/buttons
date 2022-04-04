@@ -51,7 +51,7 @@ class _CustomNavBar1State extends State<CustomNavBar1> {
           elevation: 0,
         ),
         drawer:  Drawer(
-            child: myDrawer()),
+            child: MediaQuery.of(context).size.width<=800?myDrawer():null),
         body:  myBody(),
         bottomNavigationBar: MediaQuery.of(context).size.width<=800?Container(
           height: 60,
