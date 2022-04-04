@@ -1,13 +1,14 @@
 
 
-import 'package:buttons/pages/account_page.dart';
-import 'package:buttons/pages/app_body.dart';
-import 'package:buttons/pages/drawer_page.dart';
-import 'package:buttons/pages/home_page.dart';
-import 'package:buttons/pages/notification_page.dart';
+
 import 'package:buttons/pages/search_page.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import 'account_page.dart';
+import 'home_page.dart';
+import 'notification_page.dart';
 
 
 class CustomNavBar1 extends StatefulWidget {
@@ -19,20 +20,20 @@ class CustomNavBar1 extends StatefulWidget {
 
 class _CustomNavBar1State extends State<CustomNavBar1> {
 
-  List<Widget> pages = [
-    const HomePage(),
-    const SearchPage(),
-    const NotificationPage(),
-    const AccountPage()
-  ];
-
   List icons = [
     Icons.home_filled,
     CupertinoIcons.search_circle_fill,
     CupertinoIcons.bell_circle_fill,
     CupertinoIcons.person_fill
   ];
-  int currentPage = 0;
+  List<String> pageName = [
+    'Home Page',
+    'Search Page',
+    'Notification Page',
+    'Account Page'
+  ];
+  int _currentPage = 0;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -49,9 +50,9 @@ class _CustomNavBar1State extends State<CustomNavBar1> {
           title: const Text('developers',style: TextStyle(color: Colors.black),),
           elevation: 0,
         ),
-        drawer: const Drawer(
-            child: MyDrawer()),
-        body: MyBody(),
+        drawer:  Drawer(
+            child: myDrawer()),
+        body:  myBody(),
         bottomNavigationBar: MediaQuery.of(context).size.width<=800?Container(
           height: 60,
           color: Colors.white,
@@ -67,6 +68,8 @@ class _CustomNavBar1State extends State<CustomNavBar1> {
     );
   }
 
+
+//yordamchi funksiyalar
   Widget bottomNavBarItem(int i, icon) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -75,18 +78,77 @@ class _CustomNavBar1State extends State<CustomNavBar1> {
           margin: const EdgeInsets.only(bottom: 8),
           height: 2,
           width: 50,
-          color: currentPage == i ? Colors.blue : Colors.white,
+          color:_currentPage == i ? Colors.blue : Colors.white,
         ),
         IconButton(
           onPressed: () =>
               setState(() {
-                currentPage = i;
+                _currentPage = i;
               }),
           icon: Icon(icon),
-          color: currentPage == i ? Colors.blue : Colors.grey,)
+          color: _currentPage == i ? Colors.blue : Colors.grey,)
       ],
     );
   }
-
+  Widget myDrawer() {
+    return Container(
+      width: 200,
+      decoration: const BoxDecoration(
+          border: Border(
+              right: BorderSide(
+                color: Colors.grey,
+                width: .8,
+              ))),
+      child: ListView(
+        shrinkWrap: true,
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+        children: [
+          for (int i = 0; i < 4; i++)
+            ListTile(
+              onTap: () {
+                setState(() {
+                 _currentPage = i;
+                });
+              },
+              title: Text(pageName[i]),
+              leading: Icon(icons[i]),
+            ),
+        ],
+      ),
+    );
+  }
+  Widget myBody(){
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        if (MediaQuery.of(context).size.width > 800) myDrawer(),
+        Expanded(
+          child: Container(
+            decoration: BoxDecoration(
+                border: Border.all(width: 0.9, color: Colors.grey),
+                borderRadius: BorderRadius.circular(20)),
+            child: IndexedStack(
+              children:  <Widget>[
+                HomePage(),
+                SearchPage(),
+                NotificationPage(),
+                AccountPage()
+              ],
+              index: _currentPage,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
 }
+
+
+
+
+
+
+
+
 
