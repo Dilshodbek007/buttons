@@ -29,14 +29,16 @@ class _CustomNavBar1State extends State<CustomNavBar1> {
     'Account Page'
   ];
   int _currentPage = 0;
-  bool isDrawerOn = false;
-  bool isPressed = false;
+
+  double menuWidth = 256;
+  List<bool> isSelected = [false, false, false, false];
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    isPressed = true;
+    _currentPage = 0;
+    isSelected[0] = true;
   }
 
   @override
@@ -48,17 +50,21 @@ class _CustomNavBar1State extends State<CustomNavBar1> {
         appBar: AppBar(
           leading: IconButton(
             onPressed: () {
-              MediaQuery.of(context).size.width <= 800
-                  ? _scaffoldKey.currentState?.openDrawer()
-                  : null;
-              if(isDrawerOn){
+              if (MediaQuery.of(context).size.width <= 800) {
+                _scaffoldKey.currentState?.openDrawer();
                 setState(() {
-                  isDrawerOn=false;
+                  menuWidth=256;
                 });
-              }else{
-                setState(() {
-                  isDrawerOn=true;
-                });
+              } else {
+                if (menuWidth == 256) {
+                  setState(() {
+                    menuWidth = 64;
+                  });
+                } else {
+                  setState(() {
+                    menuWidth = 256;
+                  });
+                }
               }
             },
             icon: const Icon(Icons.menu),
@@ -115,42 +121,53 @@ class _CustomNavBar1State extends State<CustomNavBar1> {
 
   Widget myDrawer() {
     return AnimatedContainer(
-      width:isDrawerOn==false?256:64,
-      duration: Duration(
-        seconds: 1,
-      ),
-      child: ListView(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+      width: menuWidth,
+      duration: Duration(seconds: 1),
+      child: ToggleButtons(
+        onPressed: ((newIndex) {
+          for (int index = 0; index < isSelected.length; index++) {
+            setState(() {
+              if (index == newIndex) {
+                isSelected[index] = true;
+                _currentPage = index;
+              } else {
+                isSelected[index] = false;
+              }
+            });
+            if(MediaQuery.of(context).size.width<=800) {
+              _scaffoldKey.currentState?.closeDrawer();
+            }
+          }
+        }),
+        direction: Axis.vertical,
+        isSelected: isSelected,
         children: [
           for (int i = 0; i < 4; i++)
-            Container(
-              color: isPressed
-                  ? _currentPage == i
-                      ? Colors.blue
-                      : Colors.white
-                  : null,
-              child: isDrawerOn == false?ListTile(
-                onTap: () {
-                  setState(() {
-                    _currentPage = i;
-                    isPressed = true;
-                  });
-                  if (MediaQuery.of(context).size.width <= 800)
-                    Navigator.pop(context);
-                },
-                title: Text(pageName[i]),
-                leading: Icon(icons[i]),
-              ):
-              IconButton(
-                  onPressed: (){
-                setState(() {
-                  _currentPage = i;
-                  isPressed = true;
-                });
-                if (MediaQuery.of(context).size.width <= 800)
-                  Navigator.pop(context);
-              }, icon: Icon(icons[i],color: Colors.grey,)),
-            ),
+            menuWidth == 256
+                ? Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    children: [
+                      Flexible(
+                        flex: 1,
+                        child: Icon(icons[i],
+                          color: Colors.grey,
+                        ),
+                      ),
+                      Flexible(
+                        flex: 1,
+                        child: SizedBox(width: 10),),
+                      Flexible(
+                        flex: 3,
+                        child: Text(pageName[i]),
+                      ),
+                    ],
+                  ),
+                )
+                : Icon(
+                    icons[i],
+                    color: Colors.grey,
+                  ),
         ],
       ),
     );
@@ -160,8 +177,7 @@ class _CustomNavBar1State extends State<CustomNavBar1> {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if (MediaQuery.of(context).size.width > 800 )
-          myDrawer(),
+        if (MediaQuery.of(context).size.width > 800) myDrawer(),
         if (MediaQuery.of(context).size.width > 800)
           const VerticalDivider(
             color: Colors.grey,
