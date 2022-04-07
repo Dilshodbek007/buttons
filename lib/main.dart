@@ -22,53 +22,30 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      onGenerateRoute: (settings) {
-        // Handle '/'
-        if (settings.name == '/') {
-          return MaterialPageRoute(builder: (context) => CustomNavBar1());
-        }
-        // Handle '/details/:id'
-        var uri = Uri.parse(settings.name!);
+      home: CustomNavBar1(),
 
-        if (uri.pathSegments.length == 2 && uri.pathSegments.first == 'home') {
-          var id = uri.pathSegments[1];
-          return MaterialPageRoute(builder: (context) => HomePage(id: id));
-
+      onGenerateRoute: (settings){
+        if (settings.name == '/home') {
+          return MaterialPageRoute(builder: (context) => HomePage());
         }
 
-        else if(uri.pathSegments.length==2 && uri.pathSegments.first=='search'){
-          var id=uri.pathSegments[1];
-          return MaterialPageRoute(builder: (context)=> SearchPage(id: id));
+        else if(settings.name=='search'){
+          return  MaterialPageRoute(builder: (context) => SearchPage());
         }
 
-        else if(uri.pathSegments.length==2 && uri.pathSegments.first=='notification'){
-          var id=uri.pathSegments[1];
-          return MaterialPageRoute(builder: (context)=> NotificationPage(id: id));
+        else if(settings.name=='/notification'){
+          return  MaterialPageRoute(builder: (context) => NotificationPage());
         }
 
-        else if(uri.pathSegments.length==2 && uri.pathSegments.first=='user'){
-          var id=uri.pathSegments[1];
-          return MaterialPageRoute(builder: (context)=> AccountPage(id: id));
+        else if(settings.name=='/account'){
+          return  MaterialPageRoute(builder: (context) => AccountPage());
         }
 
-
-        return MaterialPageRoute(builder: (context) => UnknownScreen());
       },
-
       
     );
   }
 }
-class UnknownScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      body: Center(
-        child: Text('404!'),
-      ),
-    );
-  }
-}
+
 
 

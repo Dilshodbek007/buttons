@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 
 
 class NotificationPage extends StatefulWidget {
-   NotificationPage({ this.id,Key? key}) : super(key: key);
-  String? id;
+   NotificationPage({Key? key}) : super(key: key);
   @override
   State<NotificationPage> createState() => _NotificationPageState();
 }

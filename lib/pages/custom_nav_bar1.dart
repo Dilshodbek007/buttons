@@ -1,6 +1,7 @@
 import 'package:buttons/pages/search_page.dart';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'account_page.dart';
@@ -8,13 +9,18 @@ import 'home_page.dart';
 import 'notification_page.dart';
 
 class CustomNavBar1 extends StatefulWidget {
-  const CustomNavBar1({Key? key}) : super(key: key);
+  const CustomNavBar1({
+    Key? key,
+    this.route,
+  }) : super(key: key);
+  final String? route;
 
   @override
   State<CustomNavBar1> createState() => _CustomNavBar1State();
 }
 
 class _CustomNavBar1State extends State<CustomNavBar1> {
+
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   List icons = [
     Icons.home_filled,
@@ -38,7 +44,28 @@ class _CustomNavBar1State extends State<CustomNavBar1> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    _currentPage = 0;
+
+    if(widget.route=="/"){
+     setState(() {
+       _currentPage=0;
+     });
+    }else if(widget.route=="/home") {
+     setState(() {
+       _currentPage=1;
+     });
+    }else if(widget.route=="/search") {
+      setState(() {
+        _currentPage=1;
+      });
+    }else if(widget.route=="/notification") {
+      setState(() {
+        _currentPage=1;
+      });
+    }else if(widget.route=="/account") {
+      setState(() {
+        _currentPage=1;
+      });
+    }
   }
 
   @override
@@ -136,23 +163,25 @@ class _CustomNavBar1State extends State<CustomNavBar1> {
             menuWidth == 256
                 ? InkWell(
                     onTap: () {
-                      setState(() {
-                        _currentPage=i;
-                      });
-                      if(_currentPage==0) {
-                        Navigator.pushNamed(context,'home/1');
-                      }else if(_currentPage==1){
-                        Navigator.pushNamed(context, 'search/1');
-                      }else if(_currentPage==2){
-                        Navigator.pushNamed(context, 'notification/1');
-                      }else if(_currentPage==3){
-                        Navigator.pushNamed(context, 'user/1');
+                      if (kIsWeb) {
+                        if (i == 0) {
+                          Navigator.pushNamed(context, 'home');
+                        } else if (i == 1) {
+                          Navigator.pushNamed(context, 'search');
+                        } else if (i == 2) {
+                          Navigator.pushNamed(context, 'notification');
+                        } else if (i == 3) {
+                          Navigator.pushNamed(context, 'account');
+                        }
+                      } else {
+                        setState(() {
+                          _currentPage = i;
+                        });
                       }
                     },
                     child: Container(
                       alignment: Alignment.centerLeft,
                       height: 50,
-                      color: _currentPage==i?Color(0xFFE3F2FD):null,
                       child: ListView(
                         padding: EdgeInsets.all(10),
                         scrollDirection: Axis.horizontal,
@@ -160,14 +189,20 @@ class _CustomNavBar1State extends State<CustomNavBar1> {
                         children: [
                           Icon(
                             icons[i],
-                            color: _currentPage==i? Colors.blue:Colors.grey,
+                            color:
+                                _currentPage == i ? Colors.blue : Colors.grey,
                           ),
                           SizedBox(width: 10),
                           Padding(
                             padding: const EdgeInsets.only(top: 5.0),
-                            child: Text(pageName[i],style: TextStyle(
-                              color: _currentPage==i?Colors.blue:Colors.black,
-                            ),),
+                            child: Text(
+                              pageName[i],
+                              style: TextStyle(
+                                color: _currentPage == i
+                                    ? Colors.blue
+                                    : Colors.black,
+                              ),
+                            ),
                           ),
                         ],
                       ),

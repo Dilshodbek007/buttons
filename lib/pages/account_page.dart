@@ -4,8 +4,7 @@ import 'package:flutter/material.dart';
 
 
 class AccountPage extends StatefulWidget {
-  AccountPage({ this.id,Key? key}) : super(key: key);
-  String? id;
+  AccountPage({Key? key}) : super(key: key);
   @override
   State<AccountPage> createState() => _AccountPageState();
 }

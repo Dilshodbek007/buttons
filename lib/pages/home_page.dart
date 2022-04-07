@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
-   HomePage({ this.id,Key? key}) : super(key: key);
-   String? id;
+   HomePage({Key? key}) : super(key: key);
+
   @override
   State<HomePage> createState() => _HomePageState();
 }
