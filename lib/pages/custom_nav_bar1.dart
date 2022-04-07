@@ -31,14 +31,14 @@ class _CustomNavBar1State extends State<CustomNavBar1> {
   int _currentPage = 0;
 
   double menuWidth = 256;
-  List<bool> isSelected = [false, false, false, false];
+
+  bool isPressed = false;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     _currentPage = 0;
-    isSelected[0] = true;
   }
 
   @override
@@ -53,7 +53,7 @@ class _CustomNavBar1State extends State<CustomNavBar1> {
               if (MediaQuery.of(context).size.width <= 800) {
                 _scaffoldKey.currentState?.openDrawer();
                 setState(() {
-                  menuWidth=256;
+                  menuWidth = 256;
                 });
               } else {
                 if (menuWidth == 256) {
@@ -75,7 +75,7 @@ class _CustomNavBar1State extends State<CustomNavBar1> {
             'developers',
             style: TextStyle(color: Colors.black),
           ),
-          elevation: 0,
+          elevation: 1.2,
         ),
         drawer: Drawer(
           child: myDrawer(),
@@ -97,7 +97,92 @@ class _CustomNavBar1State extends State<CustomNavBar1> {
     );
   }
 
-//yordamchi funksiyalar
+  //yordamchi funksiyalar
+  //body
+  Widget myBody() {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        if (MediaQuery.of(context).size.width > 800) myDrawer(),
+        if (MediaQuery.of(context).size.width > 800)
+          const VerticalDivider(
+            color: Colors.grey,
+            thickness: 0.4,
+          ),
+        Flexible(
+          child: IndexedStack(
+            children: <Widget>[
+              HomePage(),
+              SearchPage(),
+              NotificationPage(),
+              AccountPage()
+            ],
+            index: _currentPage,
+          ),
+        ),
+      ],
+    );
+  }
+
+  //drawer
+  Widget myDrawer() {
+    return AnimatedContainer(
+      width: menuWidth,
+      duration: Duration(milliseconds: 256),
+      child: ListView(
+        shrinkWrap: true,
+        children: [
+          for (int i = 0; i < 4; i++)
+            menuWidth == 256
+                ? InkWell(
+                    onTap: () {
+                      setState(() {
+                        _currentPage=i;
+                      });
+                      if(_currentPage==0) {
+                        Navigator.pushNamed(context,'home/1');
+                      }else if(_currentPage==1){
+                        Navigator.pushNamed(context, 'search/1');
+                      }else if(_currentPage==2){
+                        Navigator.pushNamed(context, 'notification/1');
+                      }else if(_currentPage==3){
+                        Navigator.pushNamed(context, 'user/1');
+                      }
+                    },
+                    child: Container(
+                      alignment: Alignment.centerLeft,
+                      height: 50,
+                      color: _currentPage==i?Color(0xFFE3F2FD):null,
+                      child: ListView(
+                        padding: EdgeInsets.all(10),
+                        scrollDirection: Axis.horizontal,
+                        shrinkWrap: true,
+                        children: [
+                          Icon(
+                            icons[i],
+                            color: _currentPage==i? Colors.blue:Colors.grey,
+                          ),
+                          SizedBox(width: 10),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 5.0),
+                            child: Text(pageName[i],style: TextStyle(
+                              color: _currentPage==i?Colors.blue:Colors.black,
+                            ),),
+                          ),
+                        ],
+                      ),
+                    ),
+                  )
+                : Icon(
+                    icons[i],
+                    color: Colors.grey,
+                  ),
+        ],
+      ),
+    );
+  }
+
+  //bottomNavBar
   Widget bottomNavBarItem(int i, icon) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -115,85 +200,6 @@ class _CustomNavBar1State extends State<CustomNavBar1> {
           icon: Icon(icon),
           color: _currentPage == i ? Colors.blue : Colors.grey,
         )
-      ],
-    );
-  }
-
-  Widget myDrawer() {
-    return AnimatedContainer(
-      width: menuWidth,
-      duration: Duration(seconds: 1),
-      child: ToggleButtons(
-        onPressed: ((newIndex) {
-          for (int index = 0; index < isSelected.length; index++) {
-            setState(() {
-              if (index == newIndex) {
-                isSelected[index] = true;
-                _currentPage = index;
-              } else {
-                isSelected[index] = false;
-              }
-            });
-            if(MediaQuery.of(context).size.width<=800) {
-              _scaffoldKey.currentState?.closeDrawer();
-            }
-          }
-        }),
-        direction: Axis.vertical,
-        isSelected: isSelected,
-        children: [
-          for (int i = 0; i < 4; i++)
-            menuWidth == 256
-                ? Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    children: [
-                      Flexible(
-                        flex: 1,
-                        child: Icon(icons[i],
-                          color: Colors.grey,
-                        ),
-                      ),
-                      Flexible(
-                        flex: 1,
-                        child: SizedBox(width: 10),),
-                      Flexible(
-                        flex: 3,
-                        child: Text(pageName[i]),
-                      ),
-                    ],
-                  ),
-                )
-                : Icon(
-                    icons[i],
-                    color: Colors.grey,
-                  ),
-        ],
-      ),
-    );
-  }
-
-  Widget myBody() {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        if (MediaQuery.of(context).size.width > 800) myDrawer(),
-        if (MediaQuery.of(context).size.width > 800)
-          const VerticalDivider(
-            color: Colors.grey,
-            thickness: 1,
-          ),
-        Flexible(
-          child: IndexedStack(
-            children: <Widget>[
-              HomePage(),
-              SearchPage(),
-              NotificationPage(),
-              AccountPage()
-            ],
-            index: _currentPage,
-          ),
-        ),
       ],
     );
   }
