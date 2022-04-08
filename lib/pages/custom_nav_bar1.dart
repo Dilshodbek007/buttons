@@ -53,18 +53,6 @@ class _CustomNavBar1State extends State<CustomNavBar1> {
      setState(() {
        _currentPage=1;
      });
-    }else if(widget.route=="/search") {
-      setState(() {
-        _currentPage=1;
-      });
-    }else if(widget.route=="/notification") {
-      setState(() {
-        _currentPage=1;
-      });
-    }else if(widget.route=="/account") {
-      setState(() {
-        _currentPage=1;
-      });
     }
   }
 
@@ -165,13 +153,13 @@ class _CustomNavBar1State extends State<CustomNavBar1> {
                     onTap: () {
                       if (kIsWeb) {
                         if (i == 0) {
-                          Navigator.pushNamed(context, 'home');
+                          Navigator.pushNamed(context, '/home');
                         } else if (i == 1) {
-                          Navigator.pushNamed(context, 'search');
+                          Navigator.pushNamed(context, '/search');
                         } else if (i == 2) {
-                          Navigator.pushNamed(context, 'notification');
+                          Navigator.pushNamed(context, '/notification');
                         } else if (i == 3) {
-                          Navigator.pushNamed(context, 'account');
+                          Navigator.pushNamed(context, '/account');
                         }
                       } else {
                         setState(() {

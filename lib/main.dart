@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
           return MaterialPageRoute(builder: (context) => HomePage());
         }
 
-        else if(settings.name=='search'){
+        else if(settings.name=='/search'){
           return  MaterialPageRoute(builder: (context) => SearchPage());
         }
 
