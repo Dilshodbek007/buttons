@@ -22,23 +22,32 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: CustomNavBar1(),
-
       onGenerateRoute: (settings){
-        if (settings.name == '/home') {
-          return MaterialPageRoute(builder: (context) => HomePage());
+        if (settings.name == '/') {
+          return MaterialPageRoute(builder: (context) => CustomNavBar1());
+        }
+        else if(settings.name=='/home'){
+          return  MaterialPageRoute(builder: (context) => CustomNavBar1(
+            route: settings.name,
+          ));
         }
 
         else if(settings.name=='/search'){
-          return  MaterialPageRoute(builder: (context) => SearchPage());
+          return  MaterialPageRoute(builder: (context) => CustomNavBar1(
+            route: settings.name,
+          ));
         }
 
         else if(settings.name=='/notification'){
-          return  MaterialPageRoute(builder: (context) => NotificationPage());
+          return  MaterialPageRoute(builder: (context) => CustomNavBar1(
+            route: settings.name,
+          ));
         }
 
         else if(settings.name=='/account'){
-          return  MaterialPageRoute(builder: (context) => AccountPage());
+          return  MaterialPageRoute(builder: (context) => CustomNavBar1(
+            route: settings.name,
+          ));
         }
 
       },

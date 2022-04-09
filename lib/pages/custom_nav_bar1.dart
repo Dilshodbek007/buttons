@@ -51,8 +51,20 @@ class _CustomNavBar1State extends State<CustomNavBar1> {
      });
     }else if(widget.route=="/home") {
      setState(() {
-       _currentPage=1;
+       _currentPage=0;
      });
+    }else if(widget.route=="/search") {
+      setState(() {
+        _currentPage=1;
+      });
+    }else if(widget.route=="/notification") {
+      setState(() {
+        _currentPage=2;
+      });
+    }else if(widget.route=="/account") {
+      setState(() {
+        _currentPage=3;
+      });
     }
   }
 
