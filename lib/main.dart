@@ -10,6 +10,40 @@ void main() {
   runApp(const MyApp());
 }
 
+
+class TransitionRoute extends PageRouteBuilder {
+  final Widget? widget;
+  final String? routeName;
+  TransitionRoute({this.widget, this.routeName})
+      : super(
+    settings: RouteSettings(name: routeName),
+    pageBuilder: (BuildContext context, Animation<double> animation,
+        Animation<double> secondaryAnimation) {
+      return widget!;
+    },
+    transitionDuration: const Duration(milliseconds: 0),
+    reverseTransitionDuration: const Duration(milliseconds: 0),
+    transitionsBuilder: (
+        context,
+        animation,
+        secondaryAnimation,
+        child,
+        ) {
+      var begin = Offset.zero;
+      var end = Offset.zero;
+      var curve = Curves.ease;
+      var tween = Tween(begin: begin, end: end).chain(
+        CurveTween(curve: curve),
+      );
+      return SlideTransition(
+        position: animation.drive(tween),
+        child: child,
+      );
+    },
+  );
+}
+
+
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -24,30 +58,37 @@ class MyApp extends StatelessWidget {
       ),
       onGenerateRoute: (settings){
         if (settings.name == '/') {
-          return MaterialPageRoute(builder: (context) => CustomNavBar1());
+          return TransitionRoute(
+            widget: const CustomNavBar1(),
+            routeName: settings.name,
+          );
         }
         else if(settings.name=='/home'){
-          return  MaterialPageRoute(builder: (context) => CustomNavBar1(
-            route: settings.name,
-          ));
+          return  TransitionRoute(
+            widget:  HomePage(),
+            routeName: settings.name,
+          );
         }
 
         else if(settings.name=='/search'){
-          return  MaterialPageRoute(builder: (context) => CustomNavBar1(
-            route: settings.name,
-          ));
+          return TransitionRoute(
+            widget:  const SearchPage(),
+            routeName: settings.name,
+          );
         }
 
         else if(settings.name=='/notification'){
-          return  MaterialPageRoute(builder: (context) => CustomNavBar1(
-            route: settings.name,
-          ));
+          return  TransitionRoute(
+            widget:  NotificationPage(),
+            routeName: settings.name,
+          );
         }
 
         else if(settings.name=='/account'){
-          return  MaterialPageRoute(builder: (context) => CustomNavBar1(
-            route: settings.name,
-          ));
+          return  TransitionRoute(
+            widget:  AccountPage(),
+            routeName: settings.name,
+          );
         }
 
       },
